@@ -66,7 +66,7 @@ usearch -sortbysize derep.fa -fastaout sorted.fa -minsize 2
 #Cluster the sorted, dereplicated, minsize=2 sequence set
 usearch -cluster_otus sorted.fa -otus otus.fa -otu_radius_pct 3 -sizeout -uparseout results.txt
 #Rename the OTUs for QIIME
-awk 'BEGIN{count=0;}{if ($$0~/>/){print ">" count; count+=1;} else {print}}' otus.fa > rep_set.fasta
+awk 'BEGIN{count=0;}{if ($0~/>/){print ">" count; count+=1;} else {print}}' otus.fa > rep_set.fasta
 #Map all sequences (even singletons) back onto the OTUs
 usearch -usearch_global seq.fasta -db rep_set.fasta -strand both -id 0.97 -uc map.uc -threads 4
 #Convert USEARCH output to QIIME OTU list format
